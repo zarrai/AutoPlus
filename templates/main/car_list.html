@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}{% if request.path == "/" %}Home{% else %}Car List{% endif %}{% endblock %}
+{% block content %}
+{% if request.path == "/" %}
+{# include slider #} {% include "_slider.html" %}
+    <!-- ====== Check Vehicle Area ====== --> 
+    <div class="check-vehicle-block gray-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="check-content">
+                        <h4 class="top-subtitle">Search your Car</h4>
+                        <h2 class="title yellow-color">For rates &amp; Availability</h2>
+                        <h3 class="subtitle">Find Best Rental Car</h3>
+                    </div><!-- /.check-content -->
+                </div><!-- col-md-4 -->
+
+                <div class="col-md-8">
+                    <form action="{{ request.path }}" method="get" class="advance-search-query input-night-rider yellow-theme">
+                        <div class="regular-search">                        
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="{{ filter.car_name.id_for_label }}">Name</label>
+                                    <div class="input">
+                                        <i class="fa fa-clock-o"></i>
+										{{ filter.car_name }}
+										
+                                      </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+
+                                <div class="col-md-4">
+                                    <label for="{{ filter.price_from.id_for_label }}">Your Budget</label>
+                                    <div class="input">
+                                        <i class="fa fa-money"></i>
+										{{ filter.price_from }}
+                                        
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+
+                                <div class="col-md-4">
+                                    <label for="{{ filter.price_to.id_for_label }}">Your Budget</label>
+                                    <div class="input">
+                                        <i class="fa fa-money"></i>
+										{{ filter.price_to }}
+                                        
+                                      </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+                                
+                                <div class="clearfix"></div><!-- /.clearfix -->
+
+                                <div class="col-md-4">
+                                    <label for="{{ filter.car_type.id_for_label }}">Type</label>
+                                    <div class="input">
+                                        {{ filter.car_type }}
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+
+                                <div class="col-md-4">
+                                    <label for="{{ filter.start_date.id_for_label }}">Start date</label>
+                                    <div class="input">
+                                        <i class="fa fa-calendar"></i>
+										{{ filter.start_date }}
+                                        
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+
+                                <div class="col-md-4">
+                                    <label for="{{ filter.end_date.id_for_label }}">End date</label>
+                                    <div class="input">
+                                        <i class="fa fa-calendar"></i>
+										{{ filter.end_date }}
+                                        
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+                            </div><!-- /.row -->
+                        </div><!-- /.regular-search -->
+
+                        <div class="advance-search">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="{{ filter.engine_type.id_for_label }}">Engine type</label>
+                                    <div class="input">
+                                        <i class="fa fa-money"></i>
+                                        {{ filter.engine_type }}
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+                                <div class="col-md-4">
+                                    <label for="{{ filter.min_rating.id_for_label }}">Minimal rating</label>
+                                    <div class="input">
+                                        <i class="fa fa-money"></i>
+										{{ filter.min_rating }}
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+                                <div class="col-md-4">
+                                    <label>Fuel</label>
+                                    <div class="input">
+                                        <select>
+                                            <option value="0" selected="selected">Petrol</option>
+                                            <option value="1">Diesel</option>
+                                            <option value="2">Octen</option>
+                                        </select>
+                                    </div><!--/.input-->
+                                </div><!--/.col-md-4-->
+                            </div><!-- /.row -->
+							<div class="row">
+								<!--{{ filter.accessories.label_tag }}-->
+								{{ filter.accessories |as_crispy_field}}
+							</div>
+                        </div><!-- /.advance-search -->
+
+                        <div class="check-vehicle-footer">
+                            <div class="row">                            
+                                <div class="advanced-search">
+                                    <a href="#" class="advanced-search-btn"><i class="fa fa-search"></i>Advanced search</a>
+                                </div>
+                                <button type="submit" value="Filter" class="button" >Find car</button>
+								<button type="button" class="button" onclick="clearFilters()">Clear</button>
+                            </div><!-- /.row -->
+                        </div><!-- /.check-vehicle-footer -->
+                    </form><!-- /.advance_search_query -->
+                </div><!-- /.col-md-8 -->
+            </div><!-- /.row -->
+        </div><!--/.container -->
+    </div><!-- /.check-vehicle-block-->
+
+    <div class="vehicle-multi-border yellow-black"></div><!-- /.vehicle-multi-border -->
+
+
+	    <!-- ======Regular-vehicle-block======= --> 
+    <div class="regular-vehicle-block pd-90 bg-gray-color">
+        <div class="container">
+            <div class="row tb default-margin-bottom yellow-theme">
+                <div class="col-md-9 col-sm-8 block-title-area tb-cell">
+                    <div class="heading-content style-one border">
+                        <h3 class="subtitle">Find Your Car For Safe Journey</h3>
+                        <h2 class="title">Our Regular Car</h2>
+                    </div><!-- /.heading-content-one -->
+                </div><!-- /.col-md-10 -->
+                <div class="col-md-3 col-sm-4 hidden-xs block-navigation-area tb-cell">
+                    <div class="pull-right">                    
+                        <div class="item-navigation">
+                            <a href="#" class="previous-item">
+                                <i class="fa fa-angle-left"></i> 
+                            </a>
+                            <a href="#" class="next-item">
+                                <i class="fa fa-angle-right"></i> 
+                            </a>
+                        </div><!-- /.item-navigation -->
+
+                        <div class="view-all-item">
+                            <a href="#" class="view-all-btn">View all</a>
+                        </div><!-- /.view-all-item -->
+                    </div><!-- /.pull-right -->
+                </div><!-- /.col-md-2 -->
+            </div><!-- /.row --> 
+			{% if car_list %}
+			
+            <div class="vehicle-slider slider-style-two owl-carousel" data-item="[1,1,1,1]">
+			
+                <div class="item row">
+					{% for car in car_list %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="vehicle-content theme-yellow">
+                            <div class="vehicle-thumbnail">
+                                <a href="{% url 'main:car_detail' car.pk %}">
+                                    <img src="/media/{{ car.car_image }}" alt="car-item" />
+                                </a>
+                            </div><!-- /.vehicle-thumbnail -->
+                            <div class="vehicle-bottom-content">
+                               <h2 class="vehicle-title"><a href="{% url 'main:car_detail' car.pk %}">{{ car.producer }}&nbsp{{ car.model }}</a></h2>
+                                <div class="vehicle-meta">
+                                    <div class="meta-item">
+                                        <span>Rent:  {{car.rent_cost}} DT/</span> Day.
+                                    </div>
+                                </div><!-- /.meta-left -->
+                            </div><!-- /.vehicle-bottom-content -->
+                        </div><!-- /.vehicle-content -->
+                    </div><!-- /.col-md-3 --> 
+					{% endfor %}
+                </div><!-- /.item -->
+				
+                <div class="item row">
+				{% for car in car_list %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="vehicle-content theme-yellow">
+                            <div class="vehicle-thumbnail">
+                                <a href="#">
+                                    <img src="assets/images/popular/popular-01.png" alt="car-item" />
+                                </a>
+                            </div><!-- /.vehicle-thumbnail -->
+                            <div class="vehicle-bottom-content">
+                               <h2 class="vehicle-title"><a href="#">Toyota </a></h2>
+                                <div class="vehicle-meta">
+                                    <div class="meta-item">
+                                        <span>Rent:  $200 /</span> Day.  -  $12 / Km.
+                                    </div>
+                                </div><!-- /.meta-left -->
+                            </div><!-- /.vehicle-bottom-content -->
+                        </div><!-- /.vehicle-content -->
+                    </div><!-- /.col-md-3 -->
+					{% endfor %}
+                </div><!-- /.item -->
+            </div><!-- /.vehicle-slider -->
+			
+            <!-- block-navigation-area -->
+            <div class="block-navigation-area visible-xs-block">
+                <div class="view-all-item clearfix">
+                    <a href="#" class="view-all-btn">View all</a>
+                </div><!-- /.view-all-item -->
+            </div><!-- /.block-navigation-area -->
+			
+			{% endif %}
+        </div><!-- /.container  -->
+    </div><!-- /.Regular-Vehicle Block -->
+{% else %}
+{% include 'main/car_list_1.html' %}
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+    function clearFilters() {
+        $("#id_car_name").val("");
+        $("#id_car_type").val("");
+        $("#id_engine_type").val("");
+        $("#id_accessories").val("");
+        $("#id_price_from").val("");
+        $("#id_price_to").val("");
+        $("#id_start_date").val("");
+        $("#id_end_date").val("");
+        $("#id_min_rating").val("");
+        $("#filter").submit();
+    }
+</script>
+{% endblock %}

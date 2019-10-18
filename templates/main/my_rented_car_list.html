@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% load staticfiles %} {% block head_title %}My rented car list{% endblock %}{% block content %}
+<link rel="stylesheet" href="{% static 'css/bs.css' %}">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/extra.css' %}">
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <br>
+    <h4>My rents history</h4>
+    <br>
+
+    <div class="row" id="ads">
+        {% for rent in my_rented_car_list %}
+        <!-- Category Card -->
+        <div class="col-md-4">
+            <div class="card rounded">
+                <div class="card-image">
+                    <span class="card-notify-badge">{{ rent.car.producer }}</span>
+                    <span class="card-notify-year">{{ rent.car.production_year }}</span>
+                    <img class="img-fluid" src="/media/{{ rent.car.car_image }}" alt="Alternate Text" />
+                </div>
+                <div class="card-image-overlay m-auto">
+                    <span class="card-detail-badge">Used</span>
+                    <span class="card-detail-badge">{{rent.car.rent_cost}}DT/Day</span>
+                    <span class="card-detail-badge">13000 Kms</span>
+                </div>
+                <div class="card-body text-center">
+                    <div>
+                        <h5>{{ rent.car.producer }} {{ rent.car.model }}</h5>
+                        From: {{ rent.start_date }}<br/> To: {{ rent.end_date }}<br/>
+                        <b>Total: {{rent.rent_cost}}DT</b> {% if rent.is_end_future_or_today and rent.is_start_past_or_today %}
+                        <h4><span class="label label-success"><i class="fa fa-exclamation-circle fa-pulse"></i> Currently rented</span></h4>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'shopping_cart:add_to_cart' rent.pk %}" class="btn btn-warning btn-block" role="button">Add to Cart</a>
+                    <a class="btn btn-info btn-block" href="{% url 'main:car_detail' rent.car.pk %}" role="button">Show details &raquo;</a> {%if rent.can_be_cancelled %}
+                    <a class="btn btn-success btn-block" href="{% url 'main:rent_delete' rent.pk %}" role="button">Cancel reservation</a> {%endif%}
+                    <!-- ddddddd-->
+                    {%if rent.is_start_past_or_today %} {% if user.is_authenticated %}
+
+
+                    <form action="/carRate/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="car" value="{{rent.car.id}}">
+                        <input type="hidden" class="form-control rate-input" name="rate" onchange="this.form.submit()">
+                        <div class="col-xs-12 col-md-6 btn-group">
+                            <button style="width:100% " type="button" class="btn
+      {% for rate in rent.car.rating_set.all %}
+        {% if rate.user.id == user.id %}
+        {% if rate.rating > 8 %}
+         btn-success
+        {% elif rate.rating > 6 %}
+        btn-primary
+        {% elif rate.rating > 4 %}
+        btn-info
+        {% elif rate.rating > 2 %}
+        btn-warning
+        {% elif rate.rating >= 0 %}
+        btn-danger
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+      dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+         Rating:
+     {% for rate in rent.car.rating_set.all %}
+        {% if rate.user.id == user.id %}
+         {{ rate.rating }}
+        {% endif %}
+    {% endfor %}
+         <span class="caret"></span>
+    </button>
+                            <ul class="dropdown-menu" role="menu">
+                                {% with '0 1 2 3 4 5 6 7 8 9 10' as list %} {% for i in list.split %}
+                                <li><a class="change-rate" href="#">{{ i }}</a></li>
+                                {% endfor %} {% endwith %}
+                            </ul>
+                        </div>
+                    </form>
+                    {% endif%} {%endif%}
+                    <!--hhhhhhh-->
+                </div>
+            </div>
+            </br>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script type="text/javascript">
+$( document ).ready(function() {
+    $(".change-rate").click( function(event){
+    var x = $(event.target).text();
+    $(event.target).parents(".row").first().find(".rate-input").first().val(x);
+    $(event.target).parents(".row").first().find("form").submit();
+    });
+});
+</script>
+{% endblock %}

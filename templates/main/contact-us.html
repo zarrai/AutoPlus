@@ -1,0 +1,108 @@
+{% extends 'base.html' %} {% load static %}{% block head_title %}Contact us{% endblock %} {% block content %}
+
+<!-- ====== Page Header ====== -->
+<div class="contact-us-area mr-top-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-content-three">
+                    <h2 class="title">Contact us<br> live</h2>
+                </div>
+                <!-- /.section-title-area -->
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contact-us-content-left">
+                    <div class="contact">
+                        <h4><i class="fa fa-map-marker"></i>Address</h4>
+                        <p>Cité universitaire/sidi massoud <br>Mahdia</p>
+                    </div>
+                    <!-- /.contact -->
+
+                    <div class="contact">
+                        <h4><i class="fa fa-phone"></i>Call</h4>
+                        <p>+88 0215469875 <br>666 35874692050</p>
+                    </div>
+                    <!-- /.contact -->
+
+                    <div class="contact">
+                        <h4><i class="fa fa-envelope"></i>Mail</h4>
+                        <p>example@domain.com <br /> examplemail@domain.com</p>
+                    </div>
+                    <!-- /.contact -->
+
+                    <div class="contact">
+                        <h4><i class="fa fa-user-circle"></i>Social account</h4>
+                        <div class="social-icon">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                        <!-- /.Social-icon -->
+                    </div>
+                    <!-- /.contact -->
+                </div>
+                <!-- /.contactus-content-left -->
+            </div>
+            <!-- /.col-md-4 -->
+
+            <div class="col-md-8">
+                <div class="contact-us-content-right">
+                    <form method="Post">
+                        <h3 class="from-title">Have a question?</h3>
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        <div class="input-content clearfix">
+                            <h4>Send Us A email</h4>
+                            <div class="row">
+                                {% csrf_token %} {{ form.as_p }}
+                            </div>
+                            <!-- /.row -->
+                            <div class="subimt-button clearfix">
+                                <input type="submit" value="Submit" class="submit yellow-button">
+                            </div>
+                            <!-- /.subimt -->
+                        </div>
+                        <!-- /.input-content -->
+                    </form>
+                </div>
+                <!-- /.contactus-content-right -->
+            </div>
+            <!-- /.col-md-8 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.contact-us -->
+
+<!-- ====== Map Block ====== -->
+<div class="map-block mr-btm-78">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-content style-two">
+                    <h3 class="subtitle">Find Our location</h3>
+                    <h2 class="title color-nevy">Map &amp; Directions</h2>
+                </div>
+                <!-- /.about-heading-content -->
+                <div class="header-map-content">
+                    <iframe height="550" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.205532433872!2d11.028471014600234!3d35.52391824619205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1302216985cb127d%3A0x24a342e23e50c326!2sHigher+Institute+of+Computer+Mahdia!5e0!3m2!1sen!2stn!4v1560544737011!5m2!1sen!2stn" allowfullscreen="allowfullscreen"></iframe>
+                </div>
+                <!-- /.map-content -->
+                <p>Find out how to find us from your current location</p>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.map-area -->
+
+
+
+{% endblock %}

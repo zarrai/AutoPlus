@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    {%if rent.can_be_cancelled%}
+    <form action="" method="post">{% csrf_token %}
+        <p class="lead">Are you sure you want to cancel this reservation?</p>
+        <div>
+            <h3>{{ rent.car.producer }} {{ rent.car.model }}</h3>
+            <h4>From {{ rent.start_date }} to {{ rent.end_date }}</h4>
+        </div>
+        <input type="submit" value="Confirm" class="btn btn-primary" />
+    </form>
+    {% else %}
+    <p class="lead">
+    Nice try!
+    </p>
+    <p>
+    But you can't cancel this reservation.
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

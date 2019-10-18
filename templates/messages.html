@@ -1,0 +1,32 @@
+{% if messages %}
+
+<style type="text/css">
+    div.messages {
+        background-color: #ff6b6b;
+        color: #f7fff7;
+    }
+    
+    ul.messages {
+        list-style-type: none;
+    }
+</style>
+
+<div id='message' class='messages'>
+
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{% if "html_safe" in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</li>
+            {% endfor %}
+    </ul>
+
+</div>
+{% endif %}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    //When the page has loaded.
+    $(document).ready(function() {
+        $('#message').fadeIn('slow', function() {
+            $('#message').delay(1000).fadeOut();
+        });
+    });
+</script>

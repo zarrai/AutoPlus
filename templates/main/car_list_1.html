@@ -1,0 +1,124 @@
+ {% load static %}
+ <!-- ====== Page Header ====== -->
+    <div class="page-header background-overlay" style="background-image:url(assets/images/page-header-one.png)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-title">Home / Cars / List</h2>
+                    <p class="page-description">Our All Cars</p>
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row-->
+        </div><!-- /.container-fluid -->
+    </div><!-- /.page-header -->
+
+    <!-- ====== Available Available Block ====== -->
+    <div class="available-block vehicle-padding bg-gray-color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-9 clearfix">
+                            <h2 class="available-title">Available Vehicles</h2>
+                        </div><!-- /.col-md-9 -->
+                    </div><!-- /.row -->
+
+                    <div class="row">
+					{% if car_list %}
+					{% for car in car_list %}
+                        <div class="col-md-4 col-sm-6">
+                            <div class="vehicle-content theme-yellow">
+                                <div class="vehicle-thumbnail">
+                                    <a href="{% url 'main:car_detail' car.pk %}">
+                                        <img src="/media/{{ car.car_image }}" alt="car-item" />
+                                    </a>
+                                </div><!-- /.vehicle-thumbnail -->
+                                <div class="vehicle-bottom-content">
+                                    <h2 class="vehicle-title"><a href="{% url 'main:car_detail' car.pk %}">{{ car.producer }}&nbsp{{ car.model }}</a></h2>
+                                    <div class="vehicle-meta">
+                                        <div class="meta-item">
+                                            <span>Rent:  {{car.rent_cost}} DT/</span> Day.
+                                        </div>
+                                    </div><!-- /.meta-left -->
+                                </div><!-- /.vehicle-bottom-content -->
+                            </div><!-- /.car-content -->
+                        </div><!-- /.col-md-4 -->
+						{% endfor %}
+						{% endif %}
+                    </div><!-- /.row -->
+
+
+                </div><!-- /.col-md-9 -->
+
+                <div class="col-md-3">
+                    <div class="vehicle-sidebar">
+                        <form action="{{ request.path }}" method="get" class="advance-search-query">
+                            <h2 class="form-title">Filters</h2>
+                            <div class="form-content available-filter">
+							<label  for="{{ filter.car_name.id_for_label }} class="form-title">Name</label>
+                                <div class="form-group">
+                                    <div class="input">
+                                        {{ filter.car_name }}
+                                    </div><!--/.input-->
+                                </div><!-- /.form-group -->
+								<label for="{{ filter.car_type.id_for_label }}">Type</label>
+								<div class="form-group">
+                                    <div class="input">
+                                        {{ filter.car_type }}
+                                    </div><!--/.input-->
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                    <label>Available On</label>
+                                    <div class="input">
+                                        <i class="fa fa-calendar"></i>
+                                        {{ filter.start_date }}
+                                    </div><!--/.input-->
+                                    <div class="input">
+                                        <i class="fa fa-calendar"></i>
+                                        {{ filter.end_date }}
+                                    </div><!--/.input-->
+                                </div><!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                {{ filter.price_from }}
+                                            </div><!-- /.col-xs-6 -->
+                                            <div class="col-xs-6">
+                                                {{ filter.price_to }}
+                                            </div><!-- /.col-xs-6 -->
+                                        </div><!-- /.row -->
+                                    </div><!--/.input-->
+                                </div><!-- /.form-group -->
+
+								<label for="{{ filter.engine_type.id_for_label }}">Engine type</label>
+								<div class="form-group">
+                                    <div class="input">
+                                        {{ filter.engine_type }}
+                                    </div><!--/.input-->
+                                </div><!-- /.form-group -->
+
+								<label  for="{{ filter.min_rating.id_for_label }}">Minimal rating</label>
+                                <div class="form-group">
+                                    <div class="input">
+                                        {{ filter.min_rating }}
+                                    </div><!--/.input-->
+                                </div><!-- /.form-group -->
+
+                                <div class="row">
+                                   {{ filter.accessories.label_tag }}
+									{{ filter.accessories }}
+                                </div>
+
+                                <div class="filter-button">
+                                    <button type= "submit" class="button nevy-bg">Filter</button>
+                                    <button  class="button nevy-bg" onclick="clearFilters()">Reset</button>
+                                </div><!-- /.filter-button -->
+                            </div><!-- /.from-cotent -->
+                        </form><!-- /.advance_search_query -->
+                    </div><!-- /.vehicle-sidebar -->
+                </div><!-- /.col-md-3 -->
+            </div><!-- /.row -->
+        </div><!-- /.container  -->
+    </div><!-- /.Popular Vehicle Block -->

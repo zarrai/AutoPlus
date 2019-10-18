@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% load account %}
+{% load crispy_forms_tags %}
+{% block head_title %}Sign In{% endblock %}
+
+{% block extra_head %}
+<style type="text/css">
+	.login-form {
+		width: 385px;
+		margin: 30px auto;
+	}
+    .login-form form {        
+    	margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .form-control, .login-btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+    .input-group-addon .fa {
+        font-size: 18px;
+    }
+    .login-btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+	.social-btn .btn {
+		border: none;
+        margin: 10px 3px 0;
+        opacity: 1;
+	}
+    .social-btn .btn:hover {
+        opacity: 0.9;
+    }
+	.social-btn .btn-primary {
+        background: #507cc0;
+    }
+	.social-btn .btn-info {
+		background: #64ccf1;
+	}
+	.social-btn .btn-danger {
+		background: #df4930;
+	}
+    .or-seperator {
+        margin-top: 20px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+    .or-seperator i {
+        padding: 0 10px;
+        background: #f7f7f7;
+        position: relative;
+        top: -11px;
+        z-index: 1;
+    }   
+</style>
+{% endblock %}
+{% block content %}
+<!--
+    <div class="container">
+        <h1>Sign In</h1>
+        <p>If you have not created an account yet, then please <a href="{{ signup_url }}">sign up</a> first.</p>
+        <form method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+                <input type="hidden"  class="form-control" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button class="btn btn-md btn-primary" type="submit">Sign in!</button>
+        </form>
+        <p>
+            <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
+        </p>
+		
+    </div>  /container -->
+	 <!-- ====== Page Header ====== -->
+    <div class="page-header background-overlay" style="background-image:url(assets/images/page-header-one.png)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">                
+                    <h2 class="page-title">Home / Sign in</h2>
+                    <p class="page-description">WELCOME BACK!</p>        
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row-->
+        </div><!-- /.container-fluid -->           
+    </div><!-- /.page-header -->
+
+	<div class="login-form">
+		<form action="{% url 'account_login' %}" method="post">
+			<h2 class="text-center">Sign in</h2>   
+					{% csrf_token %}
+					{{ form|crispy }}
+					{% if redirect_field_value %}
+					<input type="hidden"  class="form-control" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>	
+					{% endif %}      
+			
+				<button type="submit" class="button yellow-button btn-block">Sign in</button>
+			
+			<div class="clearfix">
+				
+				<a href="{% url 'account_reset_password' %}" >Forgot Password?</a>
+			</div>
+			<div class="or-seperator"><i>or</i></div>
+			<p class="text-center">Login with your social media account</p>
+			<div class="text-center social-btn">
+				<a href="#" class="btn btn-primary"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
+				<a href="#" class="btn btn-info"><i class="fa fa-twitter"></i>&nbsp; Twitter</a>
+				<a href="#" class="btn btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
+			</div>
+		</form>
+		<p class="text-center text-muted small">Don't have an account? <a href="{{ signup_url }}">Register here!</a></p>
+	</div> 
+{% endblock %}
